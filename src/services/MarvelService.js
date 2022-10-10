@@ -27,6 +27,7 @@ class MarvelService {
 
 
     _transformChar = (char) => {
+
         if (!char.descripton) {
             char.descripton = 'Bio or description of the character is not found.'
         }
