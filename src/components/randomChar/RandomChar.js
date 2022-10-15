@@ -8,7 +8,6 @@ import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
 class RandomChar extends Component {
-
     state = { 
         char: {},
         loading: true,
@@ -19,15 +18,14 @@ class RandomChar extends Component {
 
     componentDidMount() {
         this.updateChar();
-        //this.timerid = setInterval(this.updateChar,5000);
-    }
-
-    componentWillUnmount() {
-        //clearInterval(this.timerid);
     }
 
     onCharLoaded = (char) => {
         this.setState({char, loading: false});
+    }
+    
+    onCharLoading = () => {
+        this.setState({loading: true});
     }
 
     onError = () => {
@@ -36,7 +34,7 @@ class RandomChar extends Component {
 
     updateChar = () => { 
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-
+        this.onCharLoading();
         this.marvelService.getSingleCharacter(id).then(this.onCharLoaded).catch(this.onError);
     }
 
@@ -73,7 +71,8 @@ const View = ({char}) => {
     const {name, descripton, thumbnail, homepage, wiki} = char;
     
     const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
-    const imgFit = thumbnail === IMAGE_NOT_FOUND ? {objectFit: 'fill'} : {objectFit: 'cover'};
+    const IMAGE_NOT_AVAILIBLE = 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif';
+    let imgFit = thumbnail === (IMAGE_NOT_FOUND || IMAGE_NOT_AVAILIBLE) ? {objectFit: 'fill'} : {objectFit: 'cover'};
 
     return (
         <div className="randomchar__block">
