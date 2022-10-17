@@ -36,7 +36,7 @@ class CharList extends Component {
         const {items, loading, error} = this.state;
         const errorMessage = error ? <ErrorMessage /> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <HelpMe items={items}/> : null;
+        const content = !(loading || error) ? <LoadList items={items}/> : null;
 
         return (
             <div className="char__list">
@@ -53,7 +53,7 @@ class CharList extends Component {
     }
 }
 
-const HelpMe = ({items}) => {
+const LoadList = ({items}) => {
     return items.map(char =>{
         const {name, thumbnail, id} = char;
         const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
