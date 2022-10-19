@@ -9,20 +9,33 @@ class CharList extends Component {
     state = {
         charList: [],
         loading: true,
-        error: false
+        error: false,
+        reloading: false,
+        offset: 210
     }
     
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.marvelService.getAllCharacters().then(this.onCharListLoaded).catch(this.onError);
+        this.onRequest();
     }
 
-    onCharListLoaded = (charList) => {
-        this.setState({
-            charList,
-            loading: false
-        })
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset).then(this.onCharListLoaded).catch(this.onError);
+    }
+
+    onCharListLoading = () => {
+        this.setState({reloading: true})
+    }
+
+    onCharListLoaded = (newCharList) => {
+        this.setState(({offset, charList}) => ({
+            charList: [...charList, ...newCharList],
+            loading: false,
+            reloading: false,
+            offset: offset + 9,
+        }))
     }
 
     onError = () => {
@@ -36,7 +49,7 @@ class CharList extends Component {
         const items =  arr.map((item) => {
             const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
             const IMAGE_NOT_AVAILIBLE = 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif';
-            let imgFit = item.thumbnail === (IMAGE_NOT_FOUND || IMAGE_NOT_AVAILIBLE) ? {objectFit: 'fill'} : {objectFit: 'cover'};
+            let imgFit = (item.thumbnail === IMAGE_NOT_FOUND) || (item.thumbnail === IMAGE_NOT_AVAILIBLE) ? {objectFit: 'fill'} : {objectFit: 'cover'};
             
             return (
                 <li className="char__item" key={item.id} onClick={()=> this.props.onCharSelected(item.id)}>
@@ -55,7 +68,7 @@ class CharList extends Component {
 
     render() {
 
-        const {charList, loading, error} = this.state;
+        const {charList, loading, error, offset, reloading} = this.state;
         
         const items = this.renderItems(charList);
 
@@ -68,7 +81,10 @@ class CharList extends Component {
                 {errorMessage}
                 {spinner}
                 {content}
-                <button className="button button__main button__long">
+                <button 
+                    className="button button__main button__long" 
+                    disabled={reloading}
+                    onClick={() => this.onRequest(offset)}>
                     <div className="inner">load more</div>
                 </button>
             </div>
