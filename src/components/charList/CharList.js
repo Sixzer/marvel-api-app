@@ -54,14 +54,41 @@ class CharList extends Component {
         })
     }
 
+    itemRefs = [];
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref);
+    }
+
+    itemFocus = (id) => {
+        this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+        this.itemRefs[id].classList.add('char__item_selected');
+        this.itemRefs[id].focus();
+    }
+
     renderItems(arr) {
-        const items =  arr.map((item) => {
+        const items =  arr.map((item, i) => {
             const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
             const IMAGE_NOT_AVAILIBLE = 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif';
             let imgFit = (item.thumbnail === IMAGE_NOT_FOUND) || (item.thumbnail === IMAGE_NOT_AVAILIBLE) ? {objectFit: 'fill'} : {objectFit: 'cover'};
             
             return (
-                <li className="char__item" key={item.id} onClick={()=> this.props.onCharSelected(item.id)}>
+                <li 
+                className="char__item"
+                tabIndex={0}
+                ref={this.setRef}
+                key={item.id} 
+                onClick={() => {
+                    this.props.onCharSelected(item.id);
+                    this.itemFocus(i);
+                }}
+                onKeyPress = {(e) => {
+                    console.log(e.key)
+                    if (e.key === ' ' || e.key === "Enter") {
+                        this.props.onCharSelected(item.id);
+                        this.itemFocus(i);
+                    }
+                }}>
                         <img src={item.thumbnail} alt={item.name} style={imgFit}/>
                         <div className="char__name">{item.name}</div>
                 </li>
