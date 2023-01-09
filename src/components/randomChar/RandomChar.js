@@ -18,12 +18,7 @@ const RandomChar = () => {
         updateChar();
     },[])
 
-    // componentDidMount() {
-    //     this.updateChar();
-    // }
-
     const onCharLoaded = (char) => {
-        //this.setState({char, loading: false});
         setChar(char);
     }
 
