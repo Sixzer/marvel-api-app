@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import AppHeader from "../appHeader/AppHeader";
 import Spinner from "../spinner/Spinner";
-import { MainPage, ComicsPage, SingleComicPage, SingleCharPage } from "../pages";
-import SinglePage from "../pages/SinglePage";
+import { MainPage, ComicsPage, SingleComicPage, SingleCharPage, SinglePage } from "../pages";
 
 const Page404 = lazy(()=> import('../pages/404'));
 
