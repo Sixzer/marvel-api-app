@@ -54,7 +54,7 @@ const RandomChar = () => {
     )
 }
 const View = ({char}) => {
-    const {name, descripton, thumbnail, homepage, wiki} = char;
+    const {name, description, thumbnail, homepage, wiki} = char;
     
     const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
     const IMAGE_NOT_AVAILIBLE = 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif';
@@ -65,7 +65,7 @@ const View = ({char}) => {
             <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgFit}/>
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
-                <p className="randomchar__descr">{descripton}</p>
+                <p className="randomchar__descr">{description}</p>
                 <div className="randomchar__btns">
                     <a href={homepage} className="button button__main">
                         <div className="inner">Homepage</div>

@@ -34,18 +34,18 @@ const useMarvelService = () => {
 
     const _transformChar = (char) => {
 
-        if (!char.descripton) {
-            char.descripton = 'Bio or description of the character is not found.'
+        if (!char.description) {
+            char.description = 'Bio or description of the character is not found.'
         }
 
-        else if (char.descripton.length > 220) {
-            char.descripton = `${char.descripton.split("").slice(0,219).join("")}...`;
+        else if (char.description.length > 220) {
+            char.description = `${char.description.split("").slice(0,219).join("")}...`;
         }
 
         return {
             name: char.name,
             id: char.id,
-            descripton: char.descripton,
+            description: char.description,
             thumbnail: char.thumbnail.path + `.` + char.thumbnail.extension,
             homepage: char.urls[0].url,
             wiki: char.urls[1].url,
