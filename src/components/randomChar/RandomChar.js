@@ -47,7 +47,7 @@ const RandomChar = () => {
     )
 }
 const View = ({data}) => {
-    const {name, descripton, thumbnail, homepage, wiki} = data;
+    const {name, description, thumbnail, homepage, wiki} = data;
     
     const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
     const IMAGE_NOT_AVAILIBLE = 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif';

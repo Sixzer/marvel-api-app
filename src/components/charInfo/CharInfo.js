@@ -28,24 +28,15 @@ const CharInfo = (props) => {
         setChar(char);
     }
 
-    // const skeleton = char || loading || error ? null : <Skeleton/>;
-    // const errorMessage = error ? <ErrorMessage /> : null;
-    // const spinner = loading ? <Spinner/> : null;
-    // const content = !(loading || error || !char) ? <View char={char}/> : null;
-
     return (
         <div className="char__info">
-            {/* {skeleton}
-            {errorMessage}
-            {spinner}
-            {content} */}
             {setContent(process, View, char)}
         </div>
     )
 }
 
 const View = ({data}) => {
-    const {name, descripton, thumbnail, homepage, wiki, comics} = data;
+    const {name, description, thumbnail, homepage, wiki, comics} = data;
 
     const IMAGE_NOT_FOUND = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
     const IMAGE_NOT_AVAILIBLE = 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif';
@@ -70,9 +61,7 @@ const View = ({data}) => {
             <div className="char__descr">{description}</div>
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
-                {
-                    comics.length > 0 ? null : `There is no comics for this character`
-                }
+                {comics.length > 0 ? null : `There is no comics for this character`}
                 {
                     comics.map((item, i)=>{
                         if (i > 9) {
